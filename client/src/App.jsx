@@ -1,7 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import { AuthProvider } from "./context/AuthContext";
 
-// Import your pages here
+import ProtectedLayout from "./components/ProtectedLayout";
+
 import Dashboard from "./pages/dashboard";
 import MoveHistory from "./pages/MoveHistory";
 import Receipts from "./pages/Receipts";
@@ -15,29 +16,106 @@ import Profile from "./pages/Profile";
 
 function App() {
   return (
-    <BrowserRouter>
-
-      <div className="p-4">
+    <AuthProvider>
+      <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/receipts" element={<Receipts />} />
-          <Route path="/stock" element={<Stock />} />
-          <Route path="/deliveries" element={<Delivery />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/warehouse" element={<WarehousePage />} /> 
-          <Route path="/location" element={<LocationContent />} />
-          <Route path="/adjustment" element={<Adjustment />} />
-          <Route path="/profile" element={<Profile />} />
-          {/* <Route path="/operations" element={<Operations />} /> */}
-          {/* <Route path="/stock" element={<Stock />} /> */}
-          <Route path="/history" element={<MoveHistory />} />
-          {/* <Route path="/settings" element={<Settings />} /> */}
 
-          {/* Optional: fallback route */}
-          <Route path="*" element={<Dashboard />} />
+          {/* Public Route */}
+          <Route path="/login" element={<Login />} />
+
+          {/* Protected Routes */}
+          <Route
+            path="/"
+            element={
+              <ProtectedLayout>
+                <Dashboard />
+              </ProtectedLayout>
+            }
+          />
+
+          <Route
+            path="/receipts"
+            element={
+              <ProtectedLayout>
+                <Receipts />
+              </ProtectedLayout>
+            }
+          />
+
+          <Route
+            path="/stock"
+            element={
+              <ProtectedLayout>
+                <Stock />
+              </ProtectedLayout>
+            }
+          />
+
+          <Route
+            path="/deliveries"
+            element={
+              <ProtectedLayout>
+                <Delivery />
+              </ProtectedLayout>
+            }
+          />
+
+          <Route
+            path="/warehouse"
+            element={
+              <ProtectedLayout>
+                <WarehousePage />
+              </ProtectedLayout>
+            }
+          />
+
+          <Route
+            path="/location"
+            element={
+              <ProtectedLayout>
+                <LocationContent />
+              </ProtectedLayout>
+            }
+          />
+
+          <Route
+            path="/adjustment"
+            element={
+              <ProtectedLayout>
+                <Adjustment />
+              </ProtectedLayout>
+            }
+          />
+
+          <Route
+            path="/profile"
+            element={
+              <ProtectedLayout>
+                <Profile />
+              </ProtectedLayout>
+            }
+          />
+
+          <Route
+            path="/history"
+            element={
+              <ProtectedLayout>
+                <MoveHistory />
+              </ProtectedLayout>
+            }
+          />
+          <Route
+            path="/*"
+            element={
+              <ProtectedLayout>
+                <MoveHistory />
+              </ProtectedLayout>
+            }
+          />
+
         </Routes>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

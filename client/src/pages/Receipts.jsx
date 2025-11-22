@@ -170,7 +170,6 @@ const Receipts = () => {
 
     return (
         <div className="min-h-screen bg-gray-50 font-sans text-gray-900">
-            <Navbar />
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* Header & Actions */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
